@@ -74,12 +74,13 @@ class PSUL():
         log_info = ''
         if (not opended_after_130630) or closed_for_a_while:
             if self.man_name:   ## Ask wether to update
-                start_update = raw_input("""
-                Project {name} was ordered or opended at {ord_op} and has been 
-                closed for {days} days. Do you still want to load the data from 
-                lims into statusdb? 
-                Press enter for No, any other key for Yes! """.format(
-                name = self.name, ord_op = ordered_opened, days = days_closed))
+                #start_update = raw_input("""
+                #Project {name} was ordered or opended at {ord_op} and has been 
+                #closed for {days} days. Do you still want to load the data from 
+                #lims into statusdb? 
+                #Press enter for No, any other key for Yes! """.format(
+                #name = self.name, ord_op = ordered_opened, days = days_closed))
+                start_update=True
             else:               ## Do not update
                 start_update = False
                 log_info = ('Project is not updated because: ')
@@ -110,7 +111,7 @@ class PSUL():
                 info = self.print_couchdb_obj_to_file(obj.project)
             return "project {name} is handled and {info}: _id = {id}".format(
                                name=self.name, info=info, id=obj.project['_id'])
-        except:
+        except IOError:
             return ('Issues geting info for {name}. The "Application" udf might'
                                          ' be missing'.format(name = self.name))
 

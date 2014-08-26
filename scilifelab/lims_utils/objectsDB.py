@@ -318,7 +318,8 @@ class SampleDB():
                                 samp_run_met_id = '_'.join([lane, date, fcid, barcode])
                             except TypeError: #happens if the History object is missing fields, barcode might be None
                                 logging.debug(self.name+" ",preps[key],"-", preps[key]['reagent_label'])
-                                raise TypeError
+                                samp_run_met_id = '_'.join([lane, date, fcid ])
+                                #raise TypeError
                             dict = {'sample_run_metrics_id':find_sample_run_id_from_view(self.samp_db, samp_run_met_id),
                                 'dillution_and_pooling_start_date' : steps.dilstart['date'] if steps.dilstart else None,
                                 'sequencing_start_date' : steps.seqstart['date'] if steps.seqstart else None,
