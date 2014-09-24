@@ -329,7 +329,6 @@ class SampleDB():
                     else:
                         key = None 
                     if key:
-<<<<<<< HEAD
                         if preps[key].has_key('reagent_label'):
                             barcode = self.get_barcode(preps[key]['reagent_label'])
                             try:
@@ -368,34 +367,6 @@ class SampleDB():
                             if not sample_runs.has_key(key):
                                 sample_runs[key] = {}
                             sample_runs[key][samp_run_met_id] = dict
-=======
-                        lims_run = Process(lims, id = steps.lastseq['id'])
-                        run_dict = dict(lims_run.udf.items())
-                        if preps[key].has_key('reagent_label') and run_dict.has_key('Finish Date'):
-                            dem_art = Artifact(lims, id = steps.latestdem['outart'])
-                            seq_art = Artifact(lims, id = steps.lastseq['inart'])
-                            lims_run = Process(lims, id = steps.lastseq['id'])
-                            samp_run_met_id = self._make_sample_run_id(seq_art, 
-                                                           lims_run, preps[key],
-                                                          steps.lastseq['type'])
-                            if samp_run_met_id:
-                                srmi = find_sample_run_id_from_view(self.samp_db,
-                                                                 samp_run_met_id)
-                                dpsd = steps.dilstart['date'] if steps.dilstart else None
-                                ssd = steps.seqstart['date'] if steps.seqstart else None
-                                sfd = lims_run.udf['Finish Date'].isoformat()
-                                d = {'sample_run_metrics_id' : srmi,
-                                    'dillution_and_pooling_start_date' : dpsd,
-                                    'sequencing_start_date' : ssd,
-                                    'sequencing_run_QC_finished' : run['start_date'],
-                                    'sequencing_finish_date' : sfd,
-                                    'dem_qc_flag' : dem_art.qc_flag,
-                                    'seq_qc_flag' : seq_art.qc_flag}
-                                d = delete_Nones(d)
-                                if not sample_runs.has_key(key):
-                                    sample_runs[key] = {}
-                                sample_runs[key][samp_run_met_id] = d
->>>>>>> 286dc352228ed0fb68cdd31302487dfdce7c1951
         return sample_runs
 
     def _make_sample_run_id(self, seq_art, lims_run, prep, run_type):
